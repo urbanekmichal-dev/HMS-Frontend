@@ -1,6 +1,9 @@
 export interface SignupRequestPayload {
-    firstName?: string;
-    lastName?: string;
+    firstname?: string;
+    lastname?: string;
     email?: string;
     password?: string;
+    username?: string;
+    phone?: string;
+    address?: string;
 }

@@ -16,10 +16,13 @@ export class SignUpComponent implements OnInit {
   signupRequestPayload: SignupRequestPayload;
 
   mandoForm = new FormGroup({
-    firstName: new FormControl('a', Validators.required),
-    lastName: new FormControl('b', Validators.required),
+    firstname: new FormControl('a', Validators.required),
+    lastname: new FormControl('b', Validators.required),
     email:new FormControl('c', Validators.required),
-    password: new FormControl('d', Validators.required)
+    password: new FormControl('d', Validators.required),
+    username: new FormControl('e', Validators.required),
+    address: new FormControl('e', Validators.required),
+    phone: new FormControl('e', Validators.required),
   });
 
   onFormSubmit(): void {
@@ -29,10 +32,13 @@ export class SignUpComponent implements OnInit {
 
  constructor(private authService: RestapiService,private router: Router,private toastr: ToastrService) {
   this.signupRequestPayload = {
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     email: '',
-    password:''
+    password:'',
+    username:'',
+    address:'',
+    phone:''
   };
   }
 
@@ -40,10 +46,13 @@ export class SignUpComponent implements OnInit {
  }
 
  signup() {
-  this.signupRequestPayload.firstName = this.mandoForm.get('firstName')?.value;
-  this.signupRequestPayload.lastName = this.mandoForm.get('lastName')?.value;
+  this.signupRequestPayload.firstname = this.mandoForm.get('firstname')?.value;
+  this.signupRequestPayload.lastname = this.mandoForm.get('lastname')?.value;
   this.signupRequestPayload.email = this.mandoForm.get('email')?.value;
   this.signupRequestPayload.password = this.mandoForm.get('password')?.value;
+  this.signupRequestPayload.username = this.mandoForm.get('username')?.value;
+  this.signupRequestPayload.address = this.mandoForm.get('address')?.value;
+  this.signupRequestPayload.phone = this.mandoForm.get('phone')?.value;
 
   this.authService.signup(this.signupRequestPayload)
     .subscribe(data => {
@@ -51,7 +60,7 @@ export class SignUpComponent implements OnInit {
         { queryParams: { registered: 'true' } });
     }, error => {
       console.log(error);
-    this.toastr.error('Registration Failed! Please try again' + error)
+    this.toastr.error('Registration Failed! Please try again')
       ;
     });
     console.log('Password:' + this.mandoForm.get('password')?.value);

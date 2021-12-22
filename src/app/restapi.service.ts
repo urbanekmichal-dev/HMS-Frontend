@@ -23,7 +23,7 @@ export class RestapiService {
   // }
 
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
-    return this.http.post<LoginResponse>(environment.apiBaseUrl +`registration/login`,loginRequestPayload)
+    return this.http.post<LoginResponse>(environment.apiBaseUrl +`api/auth/login`,loginRequestPayload)
     .pipe(map(data => {
         this.localStorage.store('authenticationToken', data.authenticationToken);
         this.localStorage.store('username', data.username);
@@ -36,14 +36,20 @@ export class RestapiService {
       }));
   }
 
-  public getUsers(){
-    let username="";
-    let password="";
-    const headers = new HttpHeaders({Authorization: 'Basic' + btoa(username+";"+password)})
-    return this.http.get(environment.apiBaseUrl,{headers});
+
+  getJwtToken() {
+    return this.localStorage.retrieve('authenticationToken');
   }
 
   signup(signupRequestPayload: SignupRequestPayload): Observable<any> {
-    return this.http.post(environment.apiBaseUrl+`registration`, signupRequestPayload, { responseType: 'text' });
+    return this.http.post(environment.apiBaseUrl+`api/auth/signup`, signupRequestPayload, { responseType: 'text' });
+  }
+
+  getUserName() {
+    return this.localStorage.retrieve('username');
+  }
+
+  isLoggedIn(): boolean {
+    return this.getJwtToken() != null;
   }
 }
