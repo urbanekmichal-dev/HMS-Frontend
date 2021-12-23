@@ -5,15 +5,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { RestapiService } from './restapi.service';
+import { LoginComponent } from './auth/login/login.component';
+import { RestapiService } from './auth/shared/restapi.service';
 import {HttpClientModule } from '@angular/common/http';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { RegisterComponent } from './register/register.component';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { RoomsComponent } from './rooms/rooms.component';
+import { LogoutComponent } from './auth/logout/logout.component';
+import { HeaderComponent } from './header/header.component';
+import { UserProfleComponent } from './auth/user-profle/user-profle.component';
+import { ReservationdetailsComponent } from './reservation/reservationdetails/reservationdetails.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,12 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
     HomeComponent,
     LoginComponent,
     SignUpComponent,
-    RegisterComponent
+    RegisterComponent,
+    RoomsComponent,
+    LogoutComponent,
+    HeaderComponent,
+    UserProfleComponent,
+    ReservationdetailsComponent
   ],
   imports: [
     BrowserModule,

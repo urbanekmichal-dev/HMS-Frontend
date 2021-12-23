@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RestapiService } from '../restapi.service';
+import { RestapiService } from '../shared/restapi.service';
 import { SignupRequestPayload } from './sign-up-request.payload';
 import { ToastrService } from 'ngx-toastr';
 

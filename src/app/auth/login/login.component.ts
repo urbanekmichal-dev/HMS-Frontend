@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { throwError } from 'rxjs';
-import { RestapiService } from '../restapi.service';
+import { RestapiService } from '../shared/restapi.service';
 import { LoginRequestPayload } from './login-request.payload';
 
 @Component({

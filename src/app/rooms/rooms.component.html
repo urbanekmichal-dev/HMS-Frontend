@@ -1,0 +1,90 @@
+<form  >
+  <label>
+    Check-in
+    <input type="date" name="bday">
+  </label>
+  <label>
+    Check-out
+    <input type="date" name="bday">
+  </label>
+  <label>
+    Guests
+    <select name="guest">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">6+</option>
+    </select>
+  </label>
+
+  <button type="submit">Submit</button>
+</form>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div *ngFor="let row of rooms" class="col-md-4">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{row.picture}}"
+          alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-text">Cena: {{row.price}} zł</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">ID: {{row.id}}</li>
+          <li class="list-group-item">Rodzaj pokoju: {{row.roomType}}</li>
+          <li class="list-group-item">Piętro: {{row.floor}}</li>
+        </ul>
+        <div class="card-body">
+          <a (click)="redirect()" routerLink="/reservationdetails" href="#" class="card-link">Zarezerwuj</a>
+          <a href="#" class="card-link">Dodaj do ulubionych</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- <nav class="navbar navbar-light bg-primary">
+  
+    <div class="container-fluid">
+      
+        <h5>  </h5>
+        
+        <div class = "d-flex">
+            
+             <button  button type="submit" data-toggle="modal" data-target="#exampleModal"  class="btn btn-warning">Add room</button>
+            
+  
+        </div>
+    </div>
+  </nav>  -->
+
+<!-- <table class="table mt-3">
+    <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Room type</th>
+        <th scope="col">Floor</th>
+        <th scope="col">Price</th>
+
+        <th scope="col">Action</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of rooms">
+        <td>{{row.id}}</td>
+        <td>{{row.roomType}}</td>
+        <td>{{row.floor}}</td>
+        <td>{{row.price}} zł</td>
+       
+        <td>
+            <button  button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-success">Edit</button>
+            <button class="btn btn-danger">Delete</button>
+            <button class="btn btn-warning">List of bookings</button>
+        </td>
+      </tr>
+    </tbody>
+</table> -->

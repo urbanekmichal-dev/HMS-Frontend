@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { RestapiService } from './restapi.service';
+import { RestapiService } from './auth/shared/restapi.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +10,9 @@ import { RestapiService } from './restapi.service';
 export class AppComponent {
   title = 'hms';
 
-  username = "Michalek"
-  isLoggedIn =  false
-
-  constructor(private authService: RestapiService, private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
-    this.authService.loggedIn.subscribe((data: boolean) => this.isLoggedIn = data);
-    this.authService.username.subscribe((data: string) => this.username = data);
-    this.isLoggedIn = this.authService.isLoggedIn();
-    this.username = this.authService.getUserName();
+    
   }
 }

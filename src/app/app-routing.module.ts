@@ -1,16 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './auth/login/login.component';
+import { LogoutComponent } from './auth/logout/logout.component';
 import { RegisterComponent } from './register/register.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { RoomsComponent } from './rooms/rooms.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { UserProfleComponent } from './auth/user-profle/user-profle.component';
+import { ReservationdetailsComponent } from './reservation/reservationdetails/reservationdetails.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
 
   {path:"login",component:LoginComponent},
   {path:"signup",component:SignUpComponent},
   {path:"home",component:HomeComponent},
-  {path:"register",component:RegisterComponent}
+  {path:"register",component:RegisterComponent},
+  {path:"rooms",component:RoomsComponent,canActivate: [AuthGuard]},
+  {path:"logout",component:LogoutComponent},
+  {path:"userprofile",component:UserProfleComponent},
+  {path:"reservationdetails",component:ReservationdetailsComponent}
+
 ];
 
 @NgModule({
