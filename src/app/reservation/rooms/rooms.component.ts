@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { RestapiService } from '../auth/shared/restapi.service';
+import { RestapiService } from '../../auth/shared/restapi.service';
+import { DataService } from '../../data.service';
 import { RoomsResponsePayload } from './rooms-response.payload';
 
 @Component({
@@ -13,6 +14,9 @@ export class RoomsComponent implements OnInit {
 
   constructor(private api: RestapiService,private localStorage: LocalStorageService) { }
   public rooms: RoomsResponsePayload[] = []
+
+
+
 
   ngOnInit(): void {
     this.getAllRooms();
@@ -29,14 +33,11 @@ export class RoomsComponent implements OnInit {
     );
   }
 
-  filtrate(){
 
+  storeRoomDetails(room :RoomsResponsePayload){
+    this.api.storeRoomDetails(room)
   }
-
-  redirect()
-  {
-   
-  }
+  
 
 
 }

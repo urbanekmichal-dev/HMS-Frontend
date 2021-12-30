@@ -14,11 +14,12 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { RoomsComponent } from './rooms/rooms.component';
+import { RoomsComponent } from './reservation/rooms/rooms.component';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { HeaderComponent } from './header/header.component';
 import { UserProfleComponent } from './auth/user-profle/user-profle.component';
 import { ReservationdetailsComponent } from './reservation/reservationdetails/reservationdetails.component';
+import { BookingComponent } from './reservation/booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ReservationdetailsComponent } from './reservation/reservationdetails/re
     LogoutComponent,
     HeaderComponent,
     UserProfleComponent,
-    ReservationdetailsComponent
+    ReservationdetailsComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,

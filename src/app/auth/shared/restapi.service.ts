@@ -7,7 +7,7 @@ import { LoginRequestPayload } from '../login/login-request.payload';
 import { LoginResponse } from '../login/login-respone.payload';
 import { SignupRequestPayload } from '../sign-up/sign-up-request.payload';
 import { map, tap } from 'rxjs/operators';
-import { RoomsResponsePayload } from '../../rooms/rooms-response.payload';
+import { RoomsResponsePayload } from '../../reservation/rooms/rooms-response.payload';
 
 
 @Injectable({
@@ -19,6 +19,7 @@ export class RestapiService {
     refreshToken: this.getRefreshToken(),
     username: this.getUserName()
   }
+  roomDetails!: RoomsResponsePayload; 
 
   @Output() loggedIn: EventEmitter<boolean> = new EventEmitter();
   @Output() username: EventEmitter<string> = new EventEmitter();
@@ -89,5 +90,13 @@ export class RestapiService {
 
     getRefreshToken() {
       return this.localStorage.retrieve('refreshToken');
+    }
+
+    storeRoomDetails(room :RoomsResponsePayload){
+      this.localStorage.store('room', room);
+    }
+
+   public getRoomDetails() :RoomsResponsePayload {     
+      return this.localStorage.retrieve('room')
     }
 }

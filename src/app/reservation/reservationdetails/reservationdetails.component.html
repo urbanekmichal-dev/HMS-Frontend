@@ -1,25 +1,30 @@
 <div class="container">
     <div class="row justify-content-center">
-      <div *ngFor="let row of rooms" class="col-md-4">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="{{row.picture}}"
-            alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">Cena: {{row.price}} zł</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: {{row.id}}</li>
-            <li class="list-group-item">Rodzaj pokoju: {{row.roomType}}</li>
-            <li class="list-group-item">Piętro: {{row.floor}}</li>
-          </ul>
-          <div class="card-body">
-            <a href="#" class="card-link">Zarezerwuj</a>
-            <a href="#" class="card-link">Dodaj do ulubionych</a>
-          </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{room.picture}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">Cena: {{room.price}} zł</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: {{room.id}}</li>
+                    <li class="list-group-item">Rodzaj pokoju: {{room.roomType}}</li>
+                    <li class="list-group-item">Piętro: {{room.floor}}</li>
+                    <label class="list-group-item">Check-in <input type="date" formControlName="checkIn"
+                            name="checkIn"></label>
+                    <label class="list-group-item">Check-out <input type="date" formControlName="checkOut"
+                            name="checkOut"></label>
+                    <li class="list-group-item">Finalny koszt rezerwacji: {{room.floor}}</li>
+                </ul>
+                <div class="card-body">
+                    <a type="submit" (click)="reserve()" class="card-link">Zarezerwuj!</a>
+                    <a href="#" class="card-link">Dodaj do ulubionych  </a>
+                </div>
+            </div>
+
         </div>
-      </div>
-  
     </div>
   
-  </div>
+</div>
+{{checkIn}}
