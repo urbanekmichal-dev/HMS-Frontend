@@ -6,4 +6,5 @@ export interface SignupRequestPayload {
     username?: string;
     phone?: string;
     address?: string;
+    role?: number
 }

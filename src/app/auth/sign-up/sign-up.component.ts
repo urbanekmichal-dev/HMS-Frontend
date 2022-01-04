@@ -13,22 +13,21 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SignUpComponent implements OnInit {
 
-  signupRequestPayload: SignupRequestPayload;
+  signupRequestPayload!: SignupRequestPayload;
 
   mandoForm = new FormGroup({
-    firstname: new FormControl('a', Validators.required),
-    lastname: new FormControl('b', Validators.required),
-    email:new FormControl('c', Validators.required),
-    password: new FormControl('d', Validators.required),
-    username: new FormControl('e', Validators.required),
-    address: new FormControl('e', Validators.required),
-    phone: new FormControl('e', Validators.required),
+    firstname: new FormControl('Michal', Validators.required),
+    lastname: new FormControl('Urbanek', Validators.required),
+    email:new FormControl('micho@wp.pl', Validators.required),
+    password: new FormControl('123', Validators.required),
+    username: new FormControl('Michal', Validators.required),
+    address: new FormControl('Wiejska 41 Radzionkow', Validators.required),
+    phone: new FormControl('837625625', Validators.required),
+    role: new FormControl('1', Validators.required)
   });
 
-  onFormSubmit(): void {
-    console.log('Name:' + this.mandoForm.get('name')?.value);
-    console.log('Series:' + this.mandoForm.get('series')?.value);
-  }
+  selectedRole=1
+
 
  constructor(private authService: RestapiService,private router: Router,private toastr: ToastrService) {
   this.signupRequestPayload = {
@@ -38,9 +37,11 @@ export class SignUpComponent implements OnInit {
     password:'',
     username:'',
     address:'',
-    phone:''
+    phone:'',
+    role:0
   };
   }
+
 
  ngOnInit(): void {
  }
@@ -53,6 +54,8 @@ export class SignUpComponent implements OnInit {
   this.signupRequestPayload.username = this.mandoForm.get('username')?.value;
   this.signupRequestPayload.address = this.mandoForm.get('address')?.value;
   this.signupRequestPayload.phone = this.mandoForm.get('phone')?.value;
+  this.signupRequestPayload.role = this.mandoForm.get('role')?.value;
+
 
   this.authService.signup(this.signupRequestPayload)
     .subscribe(data => {
@@ -65,6 +68,8 @@ export class SignUpComponent implements OnInit {
     });
     console.log('Password:' + this.mandoForm.get('password')?.value);
 }
+
+
 
 
 

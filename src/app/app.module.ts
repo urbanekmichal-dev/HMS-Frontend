@@ -20,6 +20,12 @@ import { HeaderComponent } from './header/header.component';
 import { UserProfleComponent } from './auth/user-profle/user-profle.component';
 import { ReservationdetailsComponent } from './reservation/reservationdetails/reservationdetails.component';
 import { BookingComponent } from './reservation/booking/booking.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+
 
 @NgModule({
   declarations: [
@@ -45,6 +51,11 @@ import { BookingComponent } from './reservation/booking/booking.component';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     NgxWebstorageModule.forRoot(),
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
+
   ],
   providers: [RestapiService],
   bootstrap: [AppComponent]

@@ -1,13 +1,17 @@
 <form  >
-  <label>
-    Check-in
-    <input type="date" name="bday">
-  </label>
-  <label>
-    Check-out
-    <input type="date" name="bday">
-  </label>
-  <label>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" (dateChange)="dateCheckInChange($event)"  placeholder="Choose checkIn">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker ></mat-datepicker>
+  </mat-form-field>
+  
+  <mat-form-field>
+      <input matInput [matDatepicker]="picker1" (dateChange)="dateCheckOutChange($event)"  placeholder="Choose checkOut">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1 ></mat-datepicker>
+    </mat-form-field> 
+
     Guests
     <select name="guest">
       <option value="1">1</option>
@@ -18,7 +22,7 @@
       <option value="6">6</option>
       <option value="7">6+</option>
     </select>
-  </label>
+  
 
   <button type="submit">Submit</button>
 </form>
