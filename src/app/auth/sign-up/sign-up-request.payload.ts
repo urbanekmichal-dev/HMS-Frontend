@@ -7,4 +7,5 @@ export interface SignupRequestPayload {
     phone?: string;
     address?: string;
     role?: number
+    image?: string
 }

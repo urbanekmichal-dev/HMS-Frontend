@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DateFilterFn } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
+import { RestapiService } from '../auth/shared/restapi.service';
 import { HomeRequestPayload } from './home-request.payload';
 
 @Component({
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
     rooms :new FormControl('1', Validators.required)
   });
 
-  constructor(private router: Router){
+  constructor(private router: Router, public api : RestapiService){
     this.homeRequestPayload={
     location: '',
     checkIn:'',
@@ -44,11 +45,12 @@ export class HomeComponent implements OnInit {
     this.homeRequestPayload.adults = this.homeForm.get('adults')?.value;
     this.homeRequestPayload.children = this.homeForm.get('children')?.value;
     this.homeRequestPayload.rooms = this.homeForm.get('rooms')?.value;
-
-
+    
+    this.api.storeRoomSearchCriteria(this.homeRequestPayload)
     this.router.navigate(['/rooms'])
-
   }
+
+
 
 }
 

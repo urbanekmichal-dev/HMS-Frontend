@@ -1,88 +1,41 @@
-<form action="https://example.com">
-  <label>
-    Check-in
-    <input type="date" name="bday">
-  </label>
-  <label>
-    Check-out
-    <input type="date" name="bday">
-  </label>
-  <label>
-    Guests
-    <select name="guest">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">6+</option>
-    </select>
-  </label>
-
-  <button>Submit</button>
-</form>
-
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-4">
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<div class="container" style="margin-top: 20px;">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Upload and Download Files</h4>
+    </div><br>
+    <div class="panel-body">        
+      <strong>Select files from your computer</strong>
+      <div *ngIf="fileStatus.status==='progress'">
+        <div class="progress">
+          <div [style.width.%]="fileStatus.percent" class="progress-bar progress-bar-animated bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+              {{ fileStatus.requestType }} {{ fileStatus.percent }} 
+            </div>
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+      </div> <hr>
+
+      <form enctype="multipart/form-data">
+        <fieldset>
+          <div class="form-group">
+            <div>
+              <input type="file" (change)="onUploadFiles($any($event.target).files)" name="files"  class="form-control" />
+            </div>
+          </div>
+        </fieldset>
+      </form>
+      
+      <br>  
+      
+      <div *ngIf="filenames.length > 0" class="js-upload-finished">
+        <h3>Processed files</h3>
+        <div *ngFor="let filename of filenames" class="list-group">
+          <a (click)="onDownloadFile(filename)" class="list-group-item list-group-item-success" style="cursor: pointer;">
+            {{ filename }}            
+            <a class="alert-success float-right">Download</a>
+          </a><br>
         </div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-    </div>
 
-
-    
-    <div class="col-md-4">
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="https://i.ibb.co/GQT17Xf/24trending-shophotels1-super-Jumbo.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Willa u Romana</h5>
-          <p class="card-text">150zł/dzień.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">3 gości</li>
-          <li class="list-group-item">5 km od centrum</li>
-          <li class="list-group-item">Śniadanie z cenie</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Zarezerwuj</a>
-          <a href="#" class="card-link">Dodaj do ulubionych</a>
-        </div>
-      </div>
     </div>
-
   </div>
+    </div>
 
-</div>

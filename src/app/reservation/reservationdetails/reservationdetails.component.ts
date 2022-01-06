@@ -26,7 +26,12 @@ export class ReservationdetailsComponent implements OnInit {
     roomType: '',
     floor: 0,
     price: 0,
-    picture: ''
+    picture: '',
+    adults:0,
+    roomsNumber:0,
+    children:0,
+    location:'',
+    description: ''
   }
 
   booking : BookingRequestPayload = {

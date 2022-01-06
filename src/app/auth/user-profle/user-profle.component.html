@@ -1,44 +1,76 @@
-<form [formGroup]="mandoForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="mandoForm" (ngSubmit)="onUpdateUser()">
     <div class="container rounded bg-white mt-5 mb-5">
         <div class="row">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
                         width="150px"
-                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                    <span class="font-weight-bold">{{firstname}} {{lastname}}</span>
-                    <span class="text-black-50">edogaru@mail.com.my</span>
-                     <span> </span>
+                        src="C:\Users\Wasko\Downloads\uploads\{{user.image}}" >
+                    <span class="font-weight-bold">{{user.firstname}} {{user.lastname}}</span>
+                    <span class="text-black-50">{{user.email}}</span>
+                    <span> </span>
                 </div>
             </div>
             <div class="col-md-5 border-right">
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Profile Settings</h4>
+                        <h4 class="text-right">Profil użytkownika</h4>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels">Name</label><input formControlName="firstname"
-                                type="text" class="form-control" placeholder="first name" value=""></div>
-                        <div class="col-md-6"><label class="labels">Surname</label><input formControlName="lastname"
-                                type="text" class="form-control" value="" placeholder="surname"></div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12"><label class="labels">Mobile Number</label><input formControlName="phone"
-                                type="text" class="form-control" placeholder="enter phone number" value=""></div>
-
-                        <div class="col-md-12"><label class="labels">Email ID</label><input type="text"
-                                formControlName="email" class="form-control" placeholder="enter email id" value="">
+                        <div class="col-md-6">
+                            <label class="labels">Imię</label>
+                            <input formControlName="firstname" required minlength="2" pattern="[a-zA-Z]*" type="text" class="form-control" placeholder="first name"
+                                value="">
+                                <div *ngIf="mandoForm.get('firstname')?.errors?.minlength">
+                                    <small class="text-danger ">Imię musi zawierać conajmniej 2 znaki</small>
+                                  </div>
+                                  <div *ngIf="mandoForm.get('firstname')?.errors?.pattern">
+                                    <small class="text-danger ">Imię może zawierać tylko litery</small>
+                                  </div>
                         </div>
-                        <div class="col-md-12"><label class="labels">Address</label><input type="text"
-                                class="form-control" placeholder="education" value=""></div>
+                        <div class="col-md-6"><label class="labels">Nazwisko</label><input required minlength="2" pattern="[a-zA-Z]*" formControlName="lastname"
+                                type="text" class="form-control" value="" placeholder="surname">
+                                <div *ngIf="mandoForm.get('lastname')?.errors?.minlength">
+                                    <small class="text-danger ">Nazwisko musi zawierać conajmniej 2 znaki</small>
+                                  </div>
+                                  <div *ngIf="mandoForm.get('lastname')?.errors?.pattern">
+                                    <small class="text-danger ">Nazwisko może zawierać tylko litery</small>
+                                  </div>
+                            </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-md-6"><label class="labels">Username</label><input formControlName="username"
-                                type="text" class="form-control" placeholder="country" value=""></div>
-                        <div class="col-md-6"><label class="labels">????</label><input type="text" class="form-control"
-                                value="" placeholder="state"></div>
+                        <div class="col-md-12"><label class="labels">Numer telefonu</label><input pattern="[0-9]*" 
+                                formControlName="phone" type="text" class="form-control"
+                                placeholder="enter phone number" value="">
+                                <div *ngIf="mandoForm.get('phone')?.errors?.required">
+                                    <small class="text-danger ">Pole telefonu nie może być puste</small>
+                                  </div>
+                                  <div *ngIf="mandoForm.get('phone')?.errors?.pattern">
+                                    <small class="text-danger ">Pole może zawierać tylko cyfry</small>
+                                  </div>
+                            </div>
+
+                        <div class="col-md-12"><label class="labels">Adres email</label><input type="text"
+                                formControlName="email" class="form-control" placeholder="enter email id" value="">
+                                <div *ngIf="mandoForm.get('email')?.errors?.pattern">
+                                    <small class="text-danger ">Nieprawidłowy format adresu email</small>
+                                  </div>
+                        </div>
+                        <div class="col-md-12"><label class="labels">Adres domowy</label><input type="text"
+                                formControlName="address" class="form-control" placeholder="education" value="">
+                                <div *ngIf="mandoForm.get('address')?.errors?.required">
+                                    <small class="text-danger ">Pole adresu nie może być puste</small>
+                                  </div>
+                            </div>
                     </div>
-                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save
-                            Profile</button></div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><label class="labels">Nazwa użytkownika</label><input
+                                formControlName="username" type="text" class="form-control" placeholder="country"
+                                value=""></div>
+                        <div class="col-md-6"><label class="labels">Rola</label><input [disabled]="true" type="text"
+                                formControlName="role" class="form-control" value="" placeholder="state"></div>
+                    </div>
+                    <div class="mt-5 text-center"><button [disabled]=!mandoForm.valid
+                            class="btn btn-primary profile-button" type="submit">Zapisz profil</button></div>
                 </div>
             </div>
             <div class="col-md-4">
@@ -55,3 +87,4 @@
         </div>
     </div>
 </form>
+C:\Users\Wasko\Downloads\uploads\{{user.image}}

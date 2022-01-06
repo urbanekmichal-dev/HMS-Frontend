@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { RestapiService } from '../shared/restapi.service';
 import { SignupRequestPayload } from './sign-up-request.payload';
 import { ToastrService } from 'ngx-toastr';
+import { RoomService } from 'src/app/reservation/shared/room.service';
+import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
 
 
 @Component({
@@ -14,6 +16,8 @@ import { ToastrService } from 'ngx-toastr';
 export class SignUpComponent implements OnInit {
 
   signupRequestPayload!: SignupRequestPayload;
+  filenames: string[] = [];
+  fileStatus = { status: '', requestType: '', percent: 0 };
 
   mandoForm = new FormGroup({
     firstname: new FormControl('Michal', Validators.required),
@@ -23,13 +27,14 @@ export class SignUpComponent implements OnInit {
     username: new FormControl('Michal', Validators.required),
     address: new FormControl('Wiejska 41 Radzionkow', Validators.required),
     phone: new FormControl('837625625', Validators.required),
-    role: new FormControl('1', Validators.required)
+    role: new FormControl('1', Validators.required),
+    image: new FormControl('1', Validators.required)
   });
 
   selectedRole=1
 
 
- constructor(private authService: RestapiService,private router: Router,private toastr: ToastrService) {
+ constructor(private authService: RestapiService,private router: Router,private toastr: ToastrService,private roomService : RoomService) {
   this.signupRequestPayload = {
     firstname: '',
     lastname: '',
@@ -38,7 +43,8 @@ export class SignUpComponent implements OnInit {
     username:'',
     address:'',
     phone:'',
-    role:0
+    role:0,
+    image:""
   };
   }
 
@@ -69,6 +75,42 @@ export class SignUpComponent implements OnInit {
     console.log('Password:' + this.mandoForm.get('password')?.value);
 }
 
+
+onUploadFiles(files: File[]): void {
+  const formData = new FormData();
+  for (const file of files) { formData.append('files', file, file.name); }
+  this.roomService.upload(formData).subscribe(
+    event => {
+      console.log(event);
+      this.signupRequestPayload.image = this.mandoForm.get('file.name')?.value;
+      this.resportProgress(event);
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error);
+    }
+  );
+
+}
+
+
+private resportProgress(httpEvent: HttpEvent<string[] | Blob>): void {
+  switch(httpEvent.type) {
+    case HttpEventType.Response:
+      if (httpEvent.body instanceof Array) {
+        this.fileStatus.status = 'done';
+        for (const filename of httpEvent.body) {
+          this.signupRequestPayload.image = filename;
+        }
+      } else {
+      }
+      this.fileStatus.status = 'done';
+      break;
+      default:
+        console.log(httpEvent);
+        break;
+    
+  }
+}
 
 
 

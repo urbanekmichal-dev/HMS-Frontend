@@ -22,6 +22,6 @@ export class BookingService {
    }
 
    public getBookingsByRoomId(roomId: number): Observable<BookingResponePayload[]>{
-    return this.http.get<BookingResponePayload[]>(`${this.apiServerUrl}api/bookings/${roomId}`)
+    return this.http.get<BookingResponePayload[]>(`${this.apiServerUrl}api/bookings/room/${roomId}`)
     }
 }

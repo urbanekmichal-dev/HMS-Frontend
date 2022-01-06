@@ -5,6 +5,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { RestapiService } from '../../auth/shared/restapi.service';
 import { DataService } from '../../data.service';
 import { BookingFiltrateRequestPayload } from '../booking/booking-filtrate-request.payload';
+import { RoomService } from '../shared/room.service';
 import { RoomsResponsePayload } from './rooms-response.payload';
 
 @Component({
@@ -14,7 +15,7 @@ import { RoomsResponsePayload } from './rooms-response.payload';
 })
 export class RoomsComponent implements OnInit {
 
-  constructor(private api: RestapiService,private localStorage: LocalStorageService) { }
+  constructor(private api: RestapiService,private localStorage: LocalStorageService, private roomService : RoomService) { }
   public rooms: RoomsResponsePayload[] = []
 
   booking : BookingFiltrateRequestPayload = {
@@ -26,7 +27,8 @@ export class RoomsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getAllRooms();
+    //this.getAllRooms();
+    this.getAllByCriteria()
   }
 
   getAllRooms(): void {
@@ -40,10 +42,24 @@ export class RoomsComponent implements OnInit {
     );
   }
 
+  getAllByCriteria(){
+
+    this.roomService.getRoomsByCriteria(this.api.getRoomSearchCriteria()).subscribe(
+      (response: RoomsResponsePayload[]) => {
+        this.rooms = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+
+  }
+
 
   storeRoomDetails(room :RoomsResponsePayload){
     this.api.storeRoomDetails(room)
   }
+
   
 
   dateCheckInChange(event: any) {
