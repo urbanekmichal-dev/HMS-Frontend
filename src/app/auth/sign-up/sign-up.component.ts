@@ -78,11 +78,12 @@ export class SignUpComponent implements OnInit {
 
 onUploadFiles(files: File[]): void {
   const formData = new FormData();
-  for (const file of files) { formData.append('files', file, file.name); }
+  for (const file of files) { formData.append('files', file, file.name); 
+  this.signupRequestPayload.image=file.name;
+}
   this.roomService.upload(formData).subscribe(
     event => {
       console.log(event);
-      this.signupRequestPayload.image = this.mandoForm.get('file.name')?.value;
       this.resportProgress(event);
     },
     (error: HttpErrorResponse) => {

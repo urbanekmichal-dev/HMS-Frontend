@@ -21,12 +21,15 @@ export class RoomService {
     }
 
     upload(formData: FormData): Observable<HttpEvent<string[]>> {
-      return this.http.post<string[]>(`${this.apiServerUrl}api/rooms/upload`, formData, {
+      return this.http.post<string[]>(`${this.apiServerUrl}file/upload`, formData, {
         reportProgress: true,
         observe: 'events'
       });
     }
 
+
+    
+  
     
 
 }
