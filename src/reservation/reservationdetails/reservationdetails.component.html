@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+         
+                <div class="card" style="width: 25rem;">
+                    <img class="card-img-top" src="{{imageUrl}}{{room.picture}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text">{{room.location}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{this.mapper.mapRoomTypeENToPL(room.roomType)}}</li>
+                        <li class="list-group-item">Dorośli: {{room.adults}}, Dzieci: {{room.children}}</li>
+                         <li class="list-group-item">Liczba pokoi: {{room.roomsNumber}}</li>
+                         <li class="list-group-item">{{room.description}}</li>
+                        <!-- <label class="list-group-item">Check-in <input  type="date" formControlName="checkIn"
+                                name="checkIn"></label> -->
+
+
+
+                                
+                                <li style="height: 60px" class="list-group-item"> 
+                                    <mat-form-field style="width: 370px">
+                                    <input matInput [matDatepicker]="picker" (dateChange)="dateCheckInChange($event)" [matDatepickerFilter]="myHolidayFilter" placeholder="Choose checkIn">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker ></mat-datepicker>
+                                  </mat-form-field>
+                                </li>
+                                <li style="height: 60px" class="list-group-item">
+                                  <mat-form-field style="width: 370px">
+                                      <input matInput [matDatepicker]="picker1" (dateChange)="dateCheckOutChange($event)" [matDatepickerFilter]="myHolidayFilter" placeholder="Choose checkOut">
+                                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker1 ></mat-datepicker>
+                                    </mat-form-field> 
+                                </li>
+                        <!-- <label class="list-group-item">Check-out <input  type="date" min="2021-12-12" formControlName="checkOut"
+                                name="checkOut"></label> -->
+                        <li class="list-group-item">Finalny koszt rezerwacji: {{room.floor}}</li>
+                    </ul>
+                    <div class="card-body">
+                        <!-- <a type="submit"  class="card-link">Zarezerwuj!</a> -->
+                      
+                        <a href="#" (click)="onAddBooking()" class="card-link">Zarezerwuj </a>
+                        <a href="#" class="card-link">Dodaj do ulubionych </a>
+                    </div>
+                </div>
+           
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

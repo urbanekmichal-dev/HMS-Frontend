@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
 //apiBaseUrl: 'http://hotelmanagementsystem-env.eba-mc24nyan.us-east-1.elasticbeanstalk.com/'
-  apiBaseUrl: 'http://localhost:8083/'
+  apiBaseUrl: 'http://localhost:8083/',
+  S3url: 'https://hmsphotos.s3.amazonaws.com/'
   //apiBaseUrl: 'http://hotelmanagementsystem-env.eba-mc24nyan.us-east-1.elasticbeanstalk.com/'
 };
 
