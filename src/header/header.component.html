@@ -1,11 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient fixed-top">
+  <div class="container-fluid">	  
+  <a class="navbar-brand" href="#"> <img src="https://hmsphotos.s3.amazonaws.com/c0b2ab01793f5a84ee25e7e1bbf41cd0.png" alt="Logo" style="width:40px;"></a>
   <a class="navbar-brand" routerLink="/home" href="#"> Spanko.pl</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav me-auto order-0 ">
       <!-- ADMINISTARTOR -->
       <li *ngIf="role=='ADMIN'" class="nav-item">
         <a routerLink="/viewuser" class="nav-link" href="#">Użytkownicy</a>
@@ -34,17 +35,24 @@
       <li *ngIf="isLoggedIn" class="nav-item">
         <a (click)="logout()" class="nav-link" href="#">Wyloguj</a>
       </li>
+    
+      
+      
       <li *ngIf="isLoggedIn&&role=='USER'" class="nav-item">
         <a class="nav-link" routerLink="/userprofile" href="#">Zalogowany jako: {{username}} </a>
       </li>
-      
-
-
-      <li *ngIf="isLoggedIn&&(role=='ADMIN'||role=='WORKER')" class="nav-item">
+      <li *ngIf="isLoggedIn&&(role=='ADMIN'||role=='WORKER')" class="d-flex ms-auto order-5">
         <a class="nav-link" routerLink="/userprofile" href="#">Zalogowany jako: {{username}} -
           {{this.mapper.mapRoleENtoPL(role)}}</a>
       </li>
     </ul>
+    
   </div>
+</div>
 </nav>
 
+
+
+
+
+  

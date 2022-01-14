@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DateFilterFn } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
+import { FiltratePayload } from 'src/rooms/view_room/filtrate-payload';
 import { RestapiService } from '../shared/restapi.service';
 import { HomeRequestPayload } from './home-request.payload';
 
@@ -12,7 +13,7 @@ import { HomeRequestPayload } from './home-request.payload';
 })
 export class HomeComponent implements OnInit {
 
-  homeRequestPayload!: HomeRequestPayload
+  homeRequestPayload!: FiltratePayload
 
   homeForm = new FormGroup({
     location: new FormControl('', Validators.required),
@@ -30,7 +31,7 @@ export class HomeComponent implements OnInit {
     checkOut:'',
     adults:1,
     children:1,
-    rooms:1
+    roomsNumber:1
     }
   }
 
@@ -44,7 +45,7 @@ export class HomeComponent implements OnInit {
     this.homeRequestPayload.checkOut = this.homeForm.get('checkOut')?.value;
     this.homeRequestPayload.adults = this.homeForm.get('adults')?.value;
     this.homeRequestPayload.children = this.homeForm.get('children')?.value;
-    this.homeRequestPayload.rooms = this.homeForm.get('rooms')?.value;
+    this.homeRequestPayload.roomsNumber = this.homeForm.get('rooms')?.value;
     
     this.api.storeRoomSearchCriteria(this.homeRequestPayload)
     this.router.navigate(['/rooms'])

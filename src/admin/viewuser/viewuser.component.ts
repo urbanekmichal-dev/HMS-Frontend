@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router,NavigationStart,Event as NavigationEvent } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { MapperService } from 'src/shared/mapper.service';
+import { RestapiService } from 'src/shared/restapi.service';
 import { UserService } from 'src/shared/user.service';
 import { UserProfileResponsePayload } from 'src/user/user-profle/user-profile-response.payload';
 
@@ -15,11 +17,14 @@ export class ViewuserComponent implements OnInit {
   users! : UserProfileResponsePayload[]
   imageUrl = environment.S3url
   deleteUser! : UserProfileResponsePayload;
-  constructor(private userService : UserService, public mapper : MapperService) { }
+  p =1
+  constructor(private userService : UserService, private router: Router,public mapper : MapperService, private api : RestapiService) { 
+ 
+  }
 
   ngOnInit(): void {
     this.getAllUsers()
-
+  
   }
 
     getAllUsers(): void {
@@ -33,6 +38,8 @@ export class ViewuserComponent implements OnInit {
       }
     );
   }
+
+
 
   public onOpenModal(user: UserProfileResponsePayload, mode: string): void {
     const container = document.getElementById('main-container');

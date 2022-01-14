@@ -6,6 +6,7 @@ import { HomeRequestPayload } from 'src/home/home-request.payload';
 import { environment } from 'src/environments/environment';
 import { RoomsRequestPayload } from '../rooms/room-request.payload';
 import { RoomsResponsePayload } from '../rooms/rooms-response.payload';
+import { FiltratePayload } from 'src/rooms/view_room/filtrate-payload';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class RoomService {
   private apiServerUrl=environment.apiBaseUrl;
   constructor(private http: HttpClient) { }
   
-   getRoomsByCriteria(criteria: HomeRequestPayload): Observable<RoomsRequestPayload[]>{
+   getRoomsByCriteria(criteria: FiltratePayload): Observable<RoomsRequestPayload[]>{
     return this.http.post<RoomsRequestPayload[]>(`${this.apiServerUrl}api/rooms/rooms/`,criteria)
     }
     

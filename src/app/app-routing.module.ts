@@ -22,12 +22,11 @@ const routes: Routes = [
   {path:"home",component:HomeComponent},
   {path:"register",component:RegisterComponent},
   {path:"rooms",component:RoomsComponent},
-  //{path:"rooms",component:RoomsComponent,canActivate: [AuthGuard]},
   {path:"logout",component:LogoutComponent},
   {path:"userprofile",component:UserProfleComponent,canActivate: [AuthGuard]},
   {path:"reservationdetails",component:ReservationdetailsComponent,canActivate: [AuthGuard]},
-  {path:"bookings",component:BookingComponent,canActivate: [AuthGuard] },
-  {path:"addroom",component:AddroomComponent,canActivate: [AuthGuard, HasRoleGuard], data: {role: 'ADMIN'}},
+  {path:"bookings",component:BookingComponent,canActivate: [AuthGuard,HasRoleGuard], data: {role: 'USER'}},
+  {path:"addroom",component:AddroomComponent,canActivate: [AuthGuard, HasRoleGuard], data: {role: ['WORKER','ADMIN']}},
   {path:"viewuser",component:ViewuserComponent,canActivate: [AuthGuard, HasRoleGuard], data: {role: 'ADMIN'}},
 
 

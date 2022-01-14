@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   username = ""
   isLoggedIn =  false
   role = "";
+  
 
   constructor(private authService: RestapiService, private router: Router,public mapper: MapperService) { }
 
@@ -24,7 +25,7 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn();
     this.username = this.authService.getUserName();
     this.role = this.authService.getRoleUserLogged()
- 
+    
   }
 
   

@@ -5,14 +5,14 @@
                 <div class="card" style="width: 25rem;">
                     <img class="card-img-top" src="{{imageUrl}}{{room.picture}}" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text">{{room.location}}</p>
+                        <h5 class="card-title">{{room.location}}</h5>
+                        <p class="card-text">{{room.description}}</p>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">{{this.mapper.mapRoomTypeENToPL(room.roomType)}}</li>
                         <li class="list-group-item">Dorośli: {{room.adults}}, Dzieci: {{room.children}}</li>
                          <li class="list-group-item">Liczba pokoi: {{room.roomsNumber}}</li>
-                         <li class="list-group-item">{{room.description}}</li>
+                         
                         <!-- <label class="list-group-item">Check-in <input  type="date" formControlName="checkIn"
                                 name="checkIn"></label> -->
 

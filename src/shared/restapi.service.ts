@@ -13,6 +13,7 @@ import { LoginRequestPayload } from 'src/auth/login/login-request.payload';
 import { LoginResponse } from 'src/auth/login/login-respone.payload';
 import { RoomsResponsePayload } from '../rooms/rooms-response.payload';
 import { SignupRequestPayload } from 'src/auth/sign-up/sign-up-request.payload';
+import { FiltratePayload } from 'src/rooms/view_room/filtrate-payload';
 
 
 @Injectable({
@@ -30,7 +31,9 @@ export class RestapiService {
   @Output() loggedIn: EventEmitter<boolean> = new EventEmitter();
   @Output() username: EventEmitter<string> = new EventEmitter();
   @Output() role: EventEmitter<string> = new EventEmitter();
+
   constructor(private http:HttpClient, private localStorage: LocalStorageService) { }
+
 
 
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
@@ -120,11 +123,11 @@ export class RestapiService {
      return this.localStorage.retrieve('role')
     }
 
-    storeRoomSearchCriteria(searchCriteria :HomeRequestPayload){
+    storeRoomSearchCriteria(searchCriteria :FiltratePayload){
       this.localStorage.store('searchCriteria', searchCriteria);
     }
 
-    public getRoomSearchCriteria() :HomeRequestPayload {     
+    public getRoomSearchCriteria() :FiltratePayload {     
       return this.localStorage.retrieve('searchCriteria')
     }
 

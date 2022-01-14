@@ -1,3 +1,4 @@
+import { PaymentReponsePayload } from "src/payment/paymentResponsePayload";
 import { RoomsResponsePayload } from "../../rooms/rooms-response.payload";
 
 export interface BookingResponePayload {
@@ -5,4 +6,5 @@ export interface BookingResponePayload {
     checkIn: string;
     checkOut: string;
     room : RoomsResponsePayload
+    payment : PaymentReponsePayload
 }

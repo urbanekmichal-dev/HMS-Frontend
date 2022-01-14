@@ -5,6 +5,8 @@ import { UserProfileResponsePayload } from '../../user/user-profle/user-profile-
 import { ImageService } from '../../shared/image.service';
 import { RoomService } from '../../shared/room.service';
 import { RoomsResponsePayload } from '../rooms-response.payload';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addroom',
@@ -32,7 +34,7 @@ export class AddroomComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private roomService : RoomService, private imageService: ImageService) {
+  constructor(private roomService : RoomService, private imageService: ImageService, private toaster : ToastrService, private router: Router) {
 
     this.room = {
       id: 1,
@@ -63,10 +65,11 @@ export class AddroomComponent implements OnInit {
 
     this.roomService.addRoom(this.room).subscribe(
       (response: RoomsResponsePayload) =>{
-        alert("Pokój został dodany poprawnie");
+        this.toaster.success("Obiekt noclegowy został dodany pomyślnie");
+        this.router.navigate(['/rooms'])
       },
       (error:HttpErrorResponse)=>{
-        alert(error.message);
+        this.toaster.success("Wystąpił błąd podczas dodawania obiektu noclegowego");
       }
     )
 

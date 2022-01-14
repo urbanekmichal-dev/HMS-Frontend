@@ -27,6 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AddroomComponent } from '../rooms/add_room/addroom.component';
 import { RestapiService } from 'src/shared/restapi.service';
 import { ViewuserComponent } from '../admin/viewuser/viewuser.component';
+import {NgxPaginationModule} from 'ngx-pagination'
 
 
 
@@ -60,8 +61,8 @@ import { ViewuserComponent } from '../admin/viewuser/viewuser.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule
-
+    MatInputModule,
+    NgxPaginationModule
   ],
   providers: [RestapiService],
   bootstrap: [AppComponent]
