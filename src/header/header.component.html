@@ -18,12 +18,12 @@
         <a routerLink="/addroom" class="nav-link" href="#">Dodaj miejsce noclegowe</a>
       </li>
       <!-- Użytkownik -->
-      <li *ngIf="role==='USER'" class="nav-item">
+      <li *ngIf="role=='USER'" class="nav-item">
         <a *ngIf="isLoggedIn" routerLink="/bookings" class="nav-link" href="#">Twoje rezerwacje</a>
       </li>
 
       <li class="nav-item">
-        <a routerLink="/rooms" class="nav-link" href="#">Miejsce noclegowe</a>
+        <a routerLink="/rooms" class="nav-link" href="#">Miejsca noclegowe</a>
       </li>
       <li *ngIf="!isLoggedIn" class="nav-item">
         <a routerLink="/login" class="nav-link" href="#">Zaloguj się</a>

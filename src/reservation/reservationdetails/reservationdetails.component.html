@@ -21,27 +21,27 @@
                                 
                                 <li style="height: 60px" class="list-group-item"> 
                                     <mat-form-field style="width: 370px">
-                                    <input matInput [matDatepicker]="picker" (dateChange)="dateCheckInChange($event)" [matDatepickerFilter]="myHolidayFilter" placeholder="Choose checkIn">
+                                    <input matInput [matDatepicker]="picker" [min]="minDate" (dateChange)="dateCheckInChange($event)" [matDatepickerFilter]="myHolidayFilter" placeholder="Data zameldowania">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker ></mat-datepicker>
                                   </mat-form-field>
                                 </li>
                                 <li style="height: 60px" class="list-group-item">
                                   <mat-form-field style="width: 370px">
-                                      <input matInput [matDatepicker]="picker1" (dateChange)="dateCheckOutChange($event)" [matDatepickerFilter]="myHolidayFilter" placeholder="Choose checkOut">
+                                      <input matInput [min]="minDate" [matDatepicker]="picker1" (dateChange)="dateCheckOutChange($event)" [matDatepickerFilter]="myHolidayFilter" placeholder="Data wymeldowania">
                                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                       <mat-datepicker #picker1 ></mat-datepicker>
                                     </mat-form-field> 
                                 </li>
                         <!-- <label class="list-group-item">Check-out <input  type="date" min="2021-12-12" formControlName="checkOut"
                                 name="checkOut"></label> -->
-                        <li class="list-group-item">Finalny koszt rezerwacji: {{room.floor}}</li>
+                        <li *ngIf=checkIncheckout class="list-group-item">Finalny koszt rezerwacji: {{room.price}} zł</li>
                     </ul>
                     <div class="card-body">
                         <!-- <a type="submit"  class="card-link">Zarezerwuj!</a> -->
                       
-                        <a href="#" (click)="onAddBooking()" class="card-link">Zarezerwuj </a>
-                        <a href="#" class="card-link">Dodaj do ulubionych </a>
+                        <button type="button" (click)="onAddBooking()" class="btn btn-secondary" data-dismiss="modal">Zarezerwuj</button>
+                        <!-- <a href="#" (click)="onAddBooking()" class="card-link">Zarezerwuj </a> -->
                     </div>
                 </div>
            
@@ -49,8 +49,4 @@
         </div>
     </div>
 </div>
-
-
-
-
 

@@ -44,7 +44,8 @@ import { ViewuserComponent } from '../admin/viewuser/viewuser.component';
     ReservationdetailsComponent,
     BookingComponent,
     AddroomComponent,
-    ViewuserComponent
+    ViewuserComponent,
+   
   ],
   imports: [
     BrowserModule,

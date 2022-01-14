@@ -1,7 +1,7 @@
 
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -17,6 +17,9 @@ import { RoomsRequestPayload } from '../../rooms/room-request.payload';
 import { BookingService } from '../../shared/booking.service';
 import { RestapiService } from 'src/shared/restapi.service';
 import { MapperService } from 'src/shared/mapper.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { DateFilterFn } from '@angular/material/datepicker';
 
 
 
@@ -56,16 +59,19 @@ reservationDays = [
     new Date("02/01/1990"),
   ];
 
-
+  minDate = new Date()
 
   checkInn: string = "aaa"
 
-  constructor(private api: RestapiService, private bookingService: BookingService, public mapper: MapperService) { }
+  checkIncheckout =false
+
+  constructor(private api: RestapiService, private bookingService: BookingService, public mapper: MapperService, private toaster: ToastrService, private router : Router) { }
 
 
   ngOnInit(): void {
     this.room = this.api.getRoomDetails()
-    this.setBlockedDaysInCallendar()
+    //this.setBlockedDaysInCallendar()
+    this.setBlockedDays()
     
 
 
@@ -87,7 +93,7 @@ reservationDays = [
   myHolidayFilter = (d: Date | null): boolean => {
     if (d != null) {
       const time = d.getTime();
-      return !this.myHolidayDates.find(x => x.getTime() == time);
+     return !this.myHolidayDates.find(x => x.getTime() == time);
     }
     return true;
   }
@@ -102,7 +108,12 @@ reservationDays = [
          let formatedEndDate = endDate.format('MM/DD/YYYY')
 
 
-          this.rangesToDaysArray(new Date(formatedStartDate), new Date(formatedEndDate),this.myHolidayDates)
+        //  this.toaster.success(formatedStartDate+"   "+formatedEndDate)
+          // this.rangesToDaysArray(new Date('01/30/2022'), new Date('01/31/2022'))
+           //this.rangesToDaysArray(new Date('2022-01-12'), new Date('2022-01-20'))
+
+        // this.rangesToDaysArray(new Date(formatedStartDate), new Date(formatedEndDate))
+          //this.rangesToDaysArray(new Date(formatedStartDate), new Date(formatedEndDate),this.myHolidayDates)
         })
       },
       (error: HttpErrorResponse) => {
@@ -111,14 +122,13 @@ reservationDays = [
     );
   }
 
-  rangesToDaysArray(start: Date, end: Date, array : Date[]) {
-
+  rangesToDaysArray(start: Date, end: Date) {
     while (start.getDate() <= end.getDate()) {
-      array.push(new Date(start))
+      this.myHolidayDates.push(new Date(start))
       start.setDate(start.getDate() + 1)
 
-    }
   }
+}
 
 
   public onAddBooking(): void {
@@ -128,42 +138,93 @@ reservationDays = [
       this.booking.owner = this.api.getUserLoggedId();
       this.bookingService.addBooking(this.booking).subscribe(
         (response: BookingRequestPayload) => {
-          alert("Added correctly!");
+          this.toaster.success("Rezerwacja przebiegła pomyślnie")
+          this.router.navigate(['/bookings'])
+
         },
         (error: HttpErrorResponse) => {
-          alert(error.message);
-          console.log(error.message)
+  
+          this.toaster.error(error.error.message)
         }
       )
+    }
+    else {
+      this.toaster.error("Wprowadzono błędne daty!")
     }
   }
 
   dateCheckInChange(event: any) {
   var datePipe = new DatePipe('en-US');
   this. booking.checkIn = datePipe.transform( event.target.value,'yyyy-MM-dd')! 
+  if(this. booking.checkIn>=this. booking.checkOut &&  this. booking.checkOut!=""){
+    this.toaster.error("Data wymeldowania nie może poprzedzać ani być równa dacie zameldowania")
+
+    this.checkIncheckout=false;
+  }
+  else if(this.booking.checkIn!="" && this.booking.checkOut!="")
+  {
+  this.room.price = this.calculateDays(this.booking.checkIn,this.booking.checkOut)*this.room.price
+  this.checkIncheckout=true;
   }
 
+  }
 
   dateCheckOutChange(event: any) {
     var datePipe = new DatePipe('en-US');
     this.booking.checkOut = datePipe.transform( event.target.value,'yyyy-MM-dd')! 
+    if(this. booking.checkIn>=this. booking.checkOut && this. booking.checkIn!=""){
+      this.toaster.error("Data wymeldowania nie może poprzedzać ani być równa dacie zameldowania")
+
+      this.checkIncheckout=false;
+    }
+    
+    else if(this.booking.checkIn!="" && this.booking.checkOut!= "")
+    {
+    this.room.price = this.calculateDays(this.booking.checkIn,this.booking.checkOut)*this.room.price
+    this.checkIncheckout=true;
+    }
+
   }
 
   validDates(startDate: Date, endDate : Date): boolean
   {
-    if(startDate>endDate) return false
-    this.rangesToDaysArray(startDate, endDate,this.reservationDays)
-    
+    if(startDate>=endDate) return false
 
 
-    this.myHolidayDates.forEach(element => {
-      if(startDate<element && endDate>element) return false
-      else return true
-    });
     return true
   }
 
-  
+  calculateDays(checkInDate : String, checkOutDate : String) :number {
+    let days=0
+    let checkInD = new Date(checkInDate.toString())
+    let checkOutD = new Date(checkOutDate.toString())
+    while(checkInD<checkOutD){
+      checkInD.setDate(checkInD.getDate()+1)
+      days++
+    }
+    return days;
+  }
+
+
+
+  setBlockedDays() {
+    this.bookingService.getCheckInCheckOutDays(this.room.id).subscribe(
+      (response: String[]) => {
+        
+         response.forEach((element) => {
+          let startDate = moment(element.toString(),'YYYY-MM-DD')
+          let formatedStartDate = startDate.format('MM/DD/YYYY')
+          this.myHolidayDates.push(new Date(formatedStartDate))
+          
+         })
+      },
+      (err: HttpErrorResponse) => {
+        this.toaster.error(err.error.message)
+      }
+    );
+  }
+
+ 
 }
 
 

@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { BookingRequestPayload } from 'src/reservation/booking/booking-request.payload';
 import { BookingResponePayload } from 'src/reservation/booking/booking-response.payload';
+
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -26,6 +28,14 @@ export class BookingService {
     return this.http.get<BookingResponePayload[]>(`${this.apiServerUrl}api/bookings/room/${roomId}`)
     }
     public getBookingsByUserId(userId: number): Observable<BookingResponePayload[]>{
-      return this.http.get<BookingResponePayload[]>(`${this.apiServerUrl}api/bookings/user/${userId}`)
-      }
+    return this.http.get<BookingResponePayload[]>(`${this.apiServerUrl}api/bookings/user/${userId}`)
+    }
+    public getCheckInCheckOutDays(roomId : number): Observable<String[]>{
+      return this.http.get<String[]>(`${this.apiServerUrl}api/bookings/checkincheckout/${roomId}`).pipe(
+        catchError((err)=>{
+          return throwError(err)
+        })
+      )
+
+    }
 }

@@ -20,12 +20,15 @@ export class RoomService {
    getRoomsByCriteria(criteria: HomeRequestPayload): Observable<RoomsRequestPayload[]>{
     return this.http.post<RoomsRequestPayload[]>(`${this.apiServerUrl}api/rooms/rooms/`,criteria)
     }
-
-
     
     public addRoom(room: RoomsResponsePayload): Observable<RoomsResponsePayload>{
       return this.http.post<RoomsResponsePayload>(`${this.apiServerUrl}api/rooms/`,room)
     }
+
+    public deleteRoom(roomId: number): Observable<void>{
+      return this.http.delete<void>(`${this.apiServerUrl}api/rooms/visible/${roomId}`)
+    }  
+
   
     
 

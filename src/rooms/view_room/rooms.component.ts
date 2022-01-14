@@ -21,6 +21,7 @@ export class RoomsComponent implements OnInit {
 
   imageUrl = environment.S3url
   isLoggedIn =false
+  role=""
 
   constructor(private api: RestapiService,private localStorage: LocalStorageService, private roomService : RoomService, public mapper: MapperService) { }
   public rooms: RoomsRequestPayload[] = []
@@ -37,6 +38,7 @@ export class RoomsComponent implements OnInit {
     //this.getAllRooms();
     this.getAllByCriteria()
     this.isLoggedIn = this.api.isLoggedIn();
+    this.role = this.api.getRoleUserLogged();
   }
 
   getAllRooms(): void {
@@ -57,6 +59,7 @@ export class RoomsComponent implements OnInit {
     this.roomService.getRoomsByCriteria(this.api.getRoomSearchCriteria()).subscribe(
       (response: RoomsRequestPayload[]) => {
         this.rooms = response;
+
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -82,4 +85,14 @@ export class RoomsComponent implements OnInit {
       this.booking.checkOut = datePipe.transform( event.target.value,'yyyy-MM-dd')! 
     }
 
+    delete(roomId: number){
+      this.roomService.deleteRoom(roomId).subscribe(
+        (response: void) => {
+          this.getAllByCriteria();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    }
 }

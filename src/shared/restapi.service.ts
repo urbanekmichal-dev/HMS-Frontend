@@ -87,6 +87,8 @@ export class RestapiService {
       this.localStorage.clear('username');
       this.localStorage.clear('refreshToken');
       this.localStorage.clear('expiresAt');
+      this.localStorage.clear('userId');
+      this.localStorage.clear('role')
     }
 
     refreshToken() {
@@ -126,4 +128,9 @@ export class RestapiService {
       return this.localStorage.retrieve('searchCriteria')
     }
 
+    public clearRoomSearchCriteria()  {     
+      this.localStorage.clear('searchCriteria')
+    }
+
+  
 }

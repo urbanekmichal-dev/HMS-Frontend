@@ -14,6 +14,7 @@ import { AddroomComponent } from '../rooms/add_room/addroom.component';
 import { HasRoleGuard } from '../auth/has-role.guard';
 import { ViewuserComponent } from 'src/admin/viewuser/viewuser.component';
 
+
 const routes: Routes = [
 
   {path:"login",component:LoginComponent},
@@ -27,7 +28,9 @@ const routes: Routes = [
   {path:"reservationdetails",component:ReservationdetailsComponent,canActivate: [AuthGuard]},
   {path:"bookings",component:BookingComponent,canActivate: [AuthGuard] },
   {path:"addroom",component:AddroomComponent,canActivate: [AuthGuard, HasRoleGuard], data: {role: 'ADMIN'}},
-  {path:"viewuser",component:ViewuserComponent},
+  {path:"viewuser",component:ViewuserComponent,canActivate: [AuthGuard, HasRoleGuard], data: {role: 'ADMIN'}},
+
+
   { path: '',   redirectTo: '/home', pathMatch: 'full' }
 
 

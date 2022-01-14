@@ -44,9 +44,11 @@
           <li class="list-group-item">{{row.description}}</li>
           <li class="list-group-item">{{row.price}} zł</li>
         </ul>
-        <div class="card-body">
-          <a *ngIf="isLoggedIn" (click)="storeRoomDetails(row)" routerLink="/reservationdetails" href="#" class="card-link">Zarezerwuj</a>
-          <!-- <a href="#" class="card-link">Dodaj do ulubionych</a> -->
+        <div *ngIf="isLoggedIn&&role=='USER'" class="card-body">
+          <button  type="button" (click)="storeRoomDetails(row)" class="btn btn-secondary" routerLink="/reservationdetails">Zarezerwuj</button>
+        </div>
+        <div *ngIf="isLoggedIn&&(role=='ADMIN'||role=='WORKER')" class="card-body">
+          <button  type="button" (click)="delete(row.id)" class="btn btn-warning" routerLink="/editroom">Usuń</button>
         </div>
       </div>
     </div>
