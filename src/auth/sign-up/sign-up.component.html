@@ -1,0 +1,141 @@
+<div class="bg">
+<div class="register-section">
+    <div class="row justify-content-center">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header" style="text-align: center">
+                    <h4>Rejestracja</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="mandoForm" (ngSubmit)="signup()">
+                       
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Imię</label>
+                            <div class="col-md-6">
+                                <input type="text" formControlName="firstname"class="form-control" required>
+                                <span *ngIf="!mandoForm.get('firstname')?.valid && mandoForm.get('firstname')?.touched">
+                                    Proszę wprowadzić prawidłowe imię
+                                </span>                                 
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Nazwisko</label>
+                            <div class="col-md-6">
+                                <input type="text" formControlName="lastname"class="form-control" required>
+                                <span *ngIf="!mandoForm.get('lastname')?.valid && mandoForm.get('lastname')?.touched">
+                                    Proszę wprowadzić prawidłowe nazwisko
+                                </span>                                 
+                            </div>
+                        </div>
+ 
+                        <div class="form-group row">
+                            <label for="email_address" class="col-md-4 col-form-label text-md-right">Adres email</label>
+                            <div class="col-md-6">
+                                <input type="text" formControlName="email" id="email_address" class="form-control" name="email-address" required
+                                    >
+                                <span *ngIf="!mandoForm.get('email')?.valid && mandoForm.get('email')?.touched">
+                                    Proszę wprowadzić prawidłowy adres email
+                                </span>                                    
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Nazwa użytkownika</label>
+                            <div class="col-md-6">
+                                <input type="text" formControlName="username"class="form-control" required >
+                                <span *ngIf="!mandoForm.get('username')?.valid && mandoForm.get('username')?.touched">
+                                    Proszę wprowadzić prawidłową nazwę użytkownika
+                                </span>                                 
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Numer telefonu</label>
+                            <div class="col-md-6">
+                                <input type="text" formControlName="phone"class="form-control" required autofocus>
+                                <span *ngIf="!mandoForm.get('phone')?.valid && mandoForm.get('phone')?.touched">
+                                    Proszę wprowadzić prawidłowy numer telefonu
+                                </span>                                 
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Hasło</label>
+                            <div class="col-md-6">
+                                <input type="password" formControlName="password" id="password" class="form-control" name="password" required>
+                                <span *ngIf="!mandoForm.get('password')?.valid && mandoForm.get('password')?.touched">
+                                    Proszę wprowadzić prawidłowe hasło
+                                </span>  
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Adres zamieszkania</label>
+                            <div class="col-md-6">
+                                <input type="text" formControlName="address"class="form-control" required autofocus>
+                                <span *ngIf="!mandoForm.get('address')?.valid && mandoForm.get('address')?.touched">
+                                    Proszę wprowadzić prawidłowe adres zamieszkania
+                                </span>                                 
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Rola</label>
+                            <div class="col-md-6">
+                                <select formControlName="role" class="form-select" aria-label="Default select example">  
+                                    <option  selected value="1">Administrator</option>
+                                    <option value="2">Pracownik</option>
+                                    <option value="3">Klient</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Zdjęcie</label>
+                            <div class="col-md-6">
+                                <input type="text" formControlName="image"class="form-control" required autofocus>
+                                <span *ngIf="!mandoForm.get('image')?.valid && mandoForm.get('image')?.touched">
+                                    Please wybrać zdjęcie
+                                </span>                                 
+                            </div>
+                        </div> -->
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Zdjęcie</label>
+                            <div class="col-md-6">
+                                <input type="file" accept="image/png, image/gif, image/jpeg" (change)="onUploadFiles($any($event.target).files)" name="files" class="form-control" />
+                                <span *ngIf="!mandoForm.get('image')?.valid && mandoForm.get('image')?.touched">
+                                    Proszę wybrać zdjęcie
+                                </span>                                 
+                            </div>
+                        </div>
+
+                        <span class="col-md-6 offset-md-4">
+                            <button type="submit" [disabled]=!mandoForm.valid||!photoloaded class="sign-up">
+                                Zarejestruj się
+                            </button>
+                            <span style="padding-left: 15px">Masz już konto? <a routerLink="/login">Zaloguj się</a></span>
+                        </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    {{this.mandoForm.get('role')?.value}}
+</div>
+
+
+<form enctype="multipart/form-data">
+    <fieldset>
+      <div class="form-group">
+        <div>
+            
+          </div>
+      </div>
+    </fieldset>
+  </form>
+
+</div>

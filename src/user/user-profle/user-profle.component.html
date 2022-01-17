@@ -1,0 +1,91 @@
+<form [formGroup]="mandoForm" (ngSubmit)="onUpdateUser()">
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                        width="150px"
+                        src="{{imageUrl}}{{user.image}}" >
+                    <span class="font-weight-bold">{{user.firstname}} {{user.lastname}}</span>
+                    <span class="text-black-50">{{user.email}}</span>
+                    <span> </span>
+                </div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profil użytkownika</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label class="labels">Imię</label>
+                            <input formControlName="firstname" required minlength="2" pattern="[a-zA-Z]*" type="text" class="form-control" placeholder="first name"
+                                value="">
+                                <div *ngIf="mandoForm.get('firstname')?.errors?.minlength">
+                                    <small class="text-danger ">Imię musi zawierać conajmniej 2 znaki</small>
+                                  </div>
+                                  <div *ngIf="mandoForm.get('firstname')?.errors?.pattern">
+                                    <small class="text-danger ">Imię może zawierać tylko litery</small>
+                                  </div>
+                        </div>
+                        <div class="col-md-6"><label class="labels">Nazwisko</label><input required minlength="2" pattern="[a-zA-Z]*" formControlName="lastname"
+                                type="text" class="form-control" value="" placeholder="surname">
+                                <div *ngIf="mandoForm.get('lastname')?.errors?.minlength">
+                                    <small class="text-danger ">Nazwisko musi zawierać conajmniej 2 znaki</small>
+                                  </div>
+                                  <div *ngIf="mandoForm.get('lastname')?.errors?.pattern">
+                                    <small class="text-danger ">Nazwisko może zawierać tylko litery</small>
+                                  </div>
+                            </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Numer telefonu</label><input pattern="[0-9]*" 
+                                formControlName="phone" type="text" class="form-control"
+                                placeholder="enter phone number" value="">
+                                <div *ngIf="mandoForm.get('phone')?.errors?.required">
+                                    <small class="text-danger ">Pole telefonu nie może być puste</small>
+                                  </div>
+                                  <div *ngIf="mandoForm.get('phone')?.errors?.pattern">
+                                    <small class="text-danger ">Pole może zawierać tylko cyfry</small>
+                                  </div>
+                            </div>
+
+                        <div class="col-md-12"><label class="labels">Adres email</label><input type="text"
+                                formControlName="email" class="form-control" placeholder="enter email id" value="">
+                                <div *ngIf="mandoForm.get('email')?.errors?.pattern">
+                                    <small class="text-danger ">Nieprawidłowy format adresu email</small>
+                                  </div>
+                        </div>
+                        <div class="col-md-12"><label class="labels">Adres domowy</label><input type="text"
+                                formControlName="address" class="form-control" placeholder="education" value="">
+                                <div *ngIf="mandoForm.get('address')?.errors?.required">
+                                    <small class="text-danger ">Pole adresu nie może być puste</small>
+                                  </div>
+                            </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><label class="labels">Nazwa użytkownika</label><input
+                                formControlName="username" type="text" class="form-control" placeholder="country"
+                                value=""></div>
+                        <div class="col-md-6"><label class="labels">Rola</label><input [disabled]="true" type="text"
+                                formControlName="role" class="form-control" value="" placeholder="state"></div>
+                    </div>
+                    <div class="mt-5 text-center"><button [disabled]=!mandoForm.valid
+                            class="btn btn-primary profile-button" type="submit">Zapisz profil</button></div>
+                </div>
+            </div>
+
+            
+            <!-- <div class="col-md-4">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center experience"><span>Edit
+                            Experience</span><span class="border px-3 p-1 add-experience"><i
+                                class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
+                    <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text"
+                            class="form-control" placeholder="experience" value=""></div> <br>
+                    <div class="col-md-12"><label class="labels">Additional Details</label><input type="text"
+                            class="form-control" placeholder="additional details" value=""></div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</form>

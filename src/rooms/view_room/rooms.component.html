@@ -1,0 +1,165 @@
+<form [formGroup]="mandoForm" (ngSubmit)="filtrate()">
+  <div class="container rounded bg-white mt-5 mb-6">
+    <div class="row">
+      <div class="col-md-1 border-right">
+
+      </div>
+      <div class="col-md- border-right">
+        <div class="p-4 py-4">
+          
+         
+
+          <div class="row gx-1">
+
+            <div class="col-md-1"><label class="labels">Lokalizacja</label><input formControlName="location" type="text"
+              class="form-control" placeholder="np. Gliwice" value="">
+            <small class="text-danger" *ngIf="!mandoForm.get('price')?.valid && mandoForm.get('price')?.touched">
+              Proszę wprowadzić cenę za dobę
+            </small>
+          </div>
+
+            <div class="col-md-2"><label class="labels">Zameldowanie</label>
+              <div class="form-group">
+                
+                <input class="form-control" formControlName="checkIn"  type="date" required>
+              </div>
+          </div>
+
+          <div class="col-md-2"><label class="labels">Wymeldowanie</label>
+            <div class="form-group">
+              
+              <input class="form-control" formControlName="checkIn" type="date" required>
+            </div>
+        </div>
+       
+
+            <div class="col-md-1"> <label class="labels">Dzieci</label> <select formControlName="children"
+                class="form-select" aria-label="Default select example">
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+            <div class="col-md-1"><label class="labels">Dorośli</label><select formControlName="adults"
+                class="form-select" aria-label="Default select example">
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div class="col-md-1"><label class="labels">Pokoje</label><select formControlName="rooms"
+                class="form-select" aria-label="Default select example">
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+            <div class="col-md-1"><label class="labels">Cena od</label><input formControlName="priceFrom" type="number"
+                class="form-control" placeholder="np. 199zł" value="">
+              <small class="text-danger" *ngIf="!mandoForm.get('price')?.valid && mandoForm.get('price')?.touched">
+                Proszę wprowadzić cenę za dobę
+              </small>
+            </div>
+            <div class="col-md-1"><label class="labels">Cena do</label><input formControlName="priceTo" type="number"
+              class="form-control" placeholder="np. 199zł" value="">
+            <small class="text-danger" *ngIf="!mandoForm.get('price')?.valid && mandoForm.get('price')?.touched">
+              Proszę wprowadzić cenę za dobę
+            </small>
+          </div>
+
+            
+              <div class="col-md-1"><label class="labels">Rodzaj</label><select formControlName="roomType"
+                  class="form-select" aria-label="Default select example">
+                  <option value="1">Dom</option>
+                  <option value="2">Mieszkanie</option>
+                  <option value="3">Pokój</option>
+                  <option value="4">Aparatament</option>
+                  <option value="5">Inne</option>
+                </select>
+              </div>
+
+            
+
+            <div class="col-md-1">
+              <label class="labels"></label>
+              <div class=""><button [disabled]=!mandoForm.valid class="btn btn-primary profile-button"
+                type="submit">Filtruj</button></div>
+            </div>
+
+            <!-- <div class="col-md-1">
+            <button type="button" class="btn btn-danger">X</button>
+          </div> -->
+          </div>
+
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div *ngFor="let row of rooms | paginate: {itemsPerPage: 10,currentPage: p}" class="col-md-3">
+      <div class="card" style="max-width: 25rem;">
+        <!-- <img class="card-img-top" src="{{imageUrl}}{{row.picture}}" width="250"
+          alt="Card image cap"> -->
+
+
+          <div id="carousel{{row.id}}" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="{{imageUrl}}{{row.picture}}" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="{{imageUrl}}{{row.picture}}" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="{{imageUrl}}{{row.picture}}" alt="Third slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carousel{{row.id}}" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only"></span>
+            </a>
+            <a class="carousel-control-next" href="#carousel{{row.id}}" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only"></span>
+            </a>
+          </div>
+
+
+        <div class="card-body">
+          <h5 class="card-title">{{row.location}}</h5>
+          <p class="card-text">{{row.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{this.mapper.mapRoomTypeENToPL(row.roomType)}}</li>
+          <li class="list-group-item">Dorośli: {{row.adults}}, Dzieci: {{row.children}}</li>
+          <li class="list-group-item">Liczba pokoi: {{row.roomsNumber}}</li>
+          <li class="list-group-item">{{row.price}}zł za noc</li>
+        </ul>
+        <div *ngIf="isLoggedIn&&role=='USER'" class="card-body">
+          <button  type="button" (click)="storeRoomDetails(row)" class="btn btn-secondary" routerLink="/reservationdetails">Zarezerwuj</button>
+        </div>
+        <div *ngIf="isLoggedIn&&(role=='ADMIN'||role=='WORKER')" class="card-body">
+          <button  type="button" (click)="delete(row.id)" class="btn btn-warning" routerLink="/editroom">Usuń</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-lg-12 bg-light text-center">
+<pagination-controls (pageChange)="p =  $event" previousLabel="Poprzednia strona"
+nextLabel="Następna strona">  
+  </pagination-controls>
+</div>
+
+
+  

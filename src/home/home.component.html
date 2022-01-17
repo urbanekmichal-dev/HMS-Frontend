@@ -1,0 +1,122 @@
+<!-- 
+<mat-form-field>
+  <input matInput [matDatepicker]="picker" [matDatepickerFilter]="myHolidayFilter" placeholder="Choose checkIn">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker ></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput [matDatepicker]="picker1" [matDatepickerFilter]="myHolidayFilter" placeholder="Choose checkOut">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1 ></mat-datepicker>
+  </mat-form-field> 
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Booking Form HTML Template</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- {{homeRequestPayload.location}}
+  {{this.homeRequestPayload.checkIn}}
+  {{this.homeRequestPayload.checkOut}}
+  {{this.homeRequestPayload.adults}}
+  {{this.homeRequestPayload.children}}
+  {{this.homeRequestPayload.rooms}} -->
+
+
+  <div id="booking" class="section">
+    <div class="section-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7 col-md-push-5">
+            <div class="booking-cta">
+              <h1>Dokąd dziś się wybierasz?</h1>
+              <p>"Jeśli priorytety klientów nie są naszymi priorytetami, nie mamy żadnych priorytetów" - Roger Dow -
+                wicedyrektor ds. sprzedaży – Mariott Hotels & Resorts.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4 col-md-pull-7">
+            
+              <div class="booking-form">
+                <form  [formGroup]="homeForm" (ngSubmit)="search()">
+                  <div class="form-group">
+                    <span class="form-label">Lokalizacja</span>
+                    <input class="form-control" formControlName="location" type="text"
+                      placeholder="Dokąd chcesz pojechać?">
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <span class="form-label">Przyjazd</span>
+                        <input class="form-control" formControlName="checkIn" type="date" required>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <span class="form-label">Wyjazd</span>
+                        <input class="form-control" formControlName="checkOut" type="date" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <span class="form-label">Pokoje</span>
+                        <select class="form-control" formControlName="rooms">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                        </select>
+                        <span class="select-arrow"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <span class="form-label">Dorośli</span>
+                        <select class="form-control" formControlName="adults">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                        </select>
+                        <span class="select-arrow"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <span class="form-label">Dzieci</span>
+                        <select class="form-control" formControlName="children">
+                          <option>0</option>
+                          <option>1</option>
+                          <option>2</option>
+                        </select>
+                        <span class="select-arrow"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-btn">
+                    <button type="submit" [disabled]=!homeForm.valid class="submit-btn">Sprawdź dostępność</button>
+                  </div>
+                </form>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>

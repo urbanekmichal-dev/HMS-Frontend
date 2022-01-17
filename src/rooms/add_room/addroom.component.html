@@ -1,0 +1,99 @@
+<form [formGroup]="mandoForm" (ngSubmit)="onAddRoom()">
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                        width="150px" src="">
+                    <span class="font-weight-bold"></span>
+                    <span class="text-black-50"></span>
+                    <span> </span>
+                </div>
+            </div>
+            <div class="col-md-6 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Dodaj nowe miejsce do spania</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-2"> <label class="labels">Dzieci</label> <select formControlName="children"
+                                class="form-select" aria-label="Default select example">
+                                <option selected value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2"><label class="labels">Dorośli</label><select formControlName="adults"
+                                class="form-select" aria-label="Default select example">
+                                <option selected value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2"><label class="labels">Pokoje</label><select formControlName="roomsNumber"
+                                class="form-select" aria-label="Default select example">
+                                <option selected value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6"><label class="labels">Cena za dobę</label><input
+                                formControlName="price" type="text" class="form-control" placeholder="np. 199zł"
+                                value="">
+                                <small class="text-danger" *ngIf="!mandoForm.get('price')?.valid && mandoForm.get('price')?.touched">
+                                    Proszę wprowadzić cenę za dobę
+                                </small>   
+                            </div>
+
+
+                    </div>
+
+
+
+
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Lokalizacja</label><input
+                                formControlName="location" type="text" class="form-control" placeholder="np. Gliwice"
+                                value="">
+                                <small class="text-danger" *ngIf="!mandoForm.get('location')?.valid && mandoForm.get('location')?.touched">
+                                    Proszę wprowadzić lokalizację
+                                </small> 
+                        </div>
+
+                        <div class="col-md-12"><label class="labels">Opis</label><input type="text"
+                                formControlName="description" class="form-control"
+                                placeholder="np. Duży dom z widokiem na morze" value="">
+                                <small class="text-danger" *ngIf="!mandoForm.get('description')?.valid && mandoForm.get('description')?.touched">
+                                    Proszę wprowadzić opis
+                                </small>
+                        </div>
+
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><label class="labels">Rodzaj</label><select formControlName="roomType"
+                                class="form-select" aria-label="Default select example">
+                                <option value="1">Dom</option>
+                                <option value="2">Mieszkanie</option>
+                                <option value="3">Pokój</option>
+                                <option value="4">Aparatament</option>
+                                <option value="5">Inne</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6"><label class="labels">Zdjęcie</label>
+                            <input type="file" (change)="onUploadFiles($any($event.target).files)" accept="image/png, image/gif, image/jpeg"  name="files" class="form-control" /></div>
+
+
+
+                    </div>
+                    <div class="mt-5 text-center"><button [disabled]=!mandoForm.valid||!photoloaded
+                            class="btn btn-primary profile-button" type="submit">Dodaj nowe miejsce</button></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

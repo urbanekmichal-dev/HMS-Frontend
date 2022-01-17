@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+         
+                <div class="card" style="width: 25rem;">
+                    <img class="card-img-top" src="{{imageUrl}}{{room.picture}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{room.location}}</h5>
+                        <p class="card-text">{{room.description}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{this.mapper.mapRoomTypeENToPL(room.roomType)}}</li>
+                        <li class="list-group-item">Dorośli: {{room.adults}}, Dzieci: {{room.children}}</li>
+                         <li class="list-group-item">Liczba pokoi: {{room.roomsNumber}}</li>
+                         
+                        <!-- <label class="list-group-item">Check-in <input  type="date" formControlName="checkIn"
+                                name="checkIn"></label> -->
+
+
+
+                                
+                                <li style="height: 60px" class="list-group-item"> 
+                                    <mat-form-field style="width: 370px">
+                                    <input matInput [matDatepicker]="picker" [min]="minDate" (dateChange)="dateCheckInChange($event)" [matDatepickerFilter]="myHolidayFilter" placeholder="Data zameldowania">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker ></mat-datepicker>
+                                  </mat-form-field>
+                                </li>
+                                <li style="height: 60px" class="list-group-item">
+                                  <mat-form-field style="width: 370px">
+                                      <input matInput [min]="minDate" [matDatepicker]="picker1" (dateChange)="dateCheckOutChange($event)" [matDatepickerFilter]="myHolidayFilter" placeholder="Data wymeldowania">
+                                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker1 ></mat-datepicker>
+                                    </mat-form-field> 
+                                </li>
+                        <!-- <label class="list-group-item">Check-out <input  type="date" min="2021-12-12" formControlName="checkOut"
+                                name="checkOut"></label> -->
+                        <li *ngIf=checkIncheckout class="list-group-item">Finalny koszt rezerwacji: {{room.price}} zł</li>
+                    </ul>
+                    <div class="card-body">
+                        <!-- <a type="submit"  class="card-link">Zarezerwuj!</a> -->
+                      
+                        <button type="button" (click)="onAddBooking()" class="btn btn-secondary" data-dismiss="modal">Zarezerwuj</button>
+                        <!-- <a href="#" (click)="onAddBooking()" class="card-link">Zarezerwuj </a> -->
+                    </div>
+                </div>
+           
+
+        </div>
+    </div>
+</div>
+

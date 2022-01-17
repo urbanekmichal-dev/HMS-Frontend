@@ -1,0 +1,80 @@
+
+
+
+<div class="container" id="main-container">
+<div class="row">
+  <div *ngFor="let user of users | paginate: {itemsPerPage: 10,currentPage: p}" class="col-md-6 col-xl-3">
+     <div class="card m-b-30">
+        <div class="card-body row">
+           <div class="col-6">
+              <a href=""><img src="{{imageUrl}}{{user.image}}" alt="" class="img-fluid rounded-circle w-60"></a>
+           </div>
+           <div class="col-6 card-title align-self-center mb-0">
+              <h5>{{user.firstname}} {{user.lastname}}</h5>
+              <p class="m-0">{{this.mapper.mapRoleENtoPL(user.role!)}}</p>
+           </div>
+        </div>
+        <ul class="list-group list-group-flush">
+           <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email: {{user.email}}</li>
+           <li class="list-group-item"><i class="fa fa-phone float-right"></i>Tel: {{user.phone}}</li>
+        </ul>
+        <div class="card-body">
+           <div class="float-right btn-group btn-group-sm">
+              <a  class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit">Aktualizuj<i class="fa fa-pencil"></i> </a>
+              <a *ngIf=this.mapper.mapBoolean(user.enabled!) (click)="onOpenModal(user, 'deactivate')" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete">Dezaktywuj<i class="fa fa-times"></i></a>
+              <a *ngIf=!this.mapper.mapBoolean(user.enabled!) (click)="onOpenModal(user, 'activate')" class="btn btn-success tooltips" data-placement="top" data-original-title="Delete">Aktywuj<i class="fa fa-times"></i></a>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deactivateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModelLabel">Dezaktywacja użytkownika</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Czy na pewno chcesz dezaktywować użytkownika {{deleteUser?.firstname}} {{deleteUser?.lastname}}?</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button (click)="onDeleteEmloyee(deleteUser?.userId!)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="activateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModelLabel">Dezaktywacja użytkownika</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Czy na pewno chcesz aktywować użytkownika {{deleteUser?.firstname}} {{deleteUser?.lastname}}?</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+                    <button (click)="onDeleteEmloyee(deleteUser?.userId!)" class="btn btn-danger" data-dismiss="modal">Tak</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12 bg-light text-center">
+    <pagination-controls (pageChange)="p =  $event" previousLabel="Poprzednia strona"
+    nextLabel="Następna strona">  
+      </pagination-controls>
+    </div>

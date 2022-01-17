@@ -1,0 +1,58 @@
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient fixed-top">
+  <div class="container-fluid">	  
+  <a class="navbar-brand" href="#"> <img src="https://hmsphotos.s3.amazonaws.com/c0b2ab01793f5a84ee25e7e1bbf41cd0.png" alt="Logo" style="width:40px;"></a>
+  <a class="navbar-brand" routerLink="/home" href="#"> Spanko.pl</a>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav me-auto order-0 ">
+      <!-- ADMINISTARTOR -->
+      <li *ngIf="role=='ADMIN'" class="nav-item">
+        <a routerLink="/viewuser" class="nav-link" href="#">Użytkownicy</a>
+      </li>
+      <li *ngIf="role=='ADMIN'" class="nav-item">
+        <a routerLink="/addroom" class="nav-link" href="#">Dodaj miejsce noclegowe</a>
+      </li>
+      <!-- PRACOWNIK -->
+      <li *ngIf="role=='WORKER'" class="nav-item">
+        <a routerLink="/addroom" class="nav-link" href="#">Dodaj miejsce noclegowe</a>
+      </li>
+      <!-- Użytkownik -->
+      <li *ngIf="role=='USER'" class="nav-item">
+        <a *ngIf="isLoggedIn" routerLink="/bookings" class="nav-link" href="#">Twoje rezerwacje</a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="/rooms" class="nav-link" href="#">Miejsca noclegowe</a>
+      </li>
+      <li *ngIf="!isLoggedIn" class="nav-item">
+        <a routerLink="/login" class="nav-link" href="#">Zaloguj się</a>
+      </li>
+      <li *ngIf="!isLoggedIn" class="nav-item">
+        <a routerLink="/signup" class="nav-link" href="#">Zarejestruj się</a>
+      </li>
+      <li *ngIf="isLoggedIn" class="nav-item">
+        <a (click)="logout()" class="nav-link" href="#">Wyloguj</a>
+      </li>
+    
+      
+      
+      <li *ngIf="isLoggedIn&&role=='USER'" class="nav-item">
+        <a class="nav-link" routerLink="/userprofile" href="#">Zalogowany jako: {{username}} </a>
+      </li>
+      <li *ngIf="isLoggedIn&&(role=='ADMIN'||role=='WORKER')" class="d-flex ms-auto order-5">
+        <a class="nav-link" routerLink="/userprofile" href="#">Zalogowany jako: {{username}} -
+          {{this.mapper.mapRoleENtoPL(role)}}</a>
+      </li>
+    </ul>
+    
+  </div>
+</div>
+</nav>
+
+
+
+
+
+  
